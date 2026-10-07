@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans transition-colors duration-200;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Optimal rendering for Khmer script */
+  :lang(km),
+  .font-khmer {
+    font-family: 'Noto Sans Khmer', sans-serif;
+    line-height: 1.85 !important;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glassmorphism helpers for Light & Dark mode */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Subtle glowing pulse */
+@keyframes subtle-glow {
+  0%, 100% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.6));
+  }
+}
+
+.animate-glow {
+  animation: subtle-glow 4s infinite ease-in-out;
+}

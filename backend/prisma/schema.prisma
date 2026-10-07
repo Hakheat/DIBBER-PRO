@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define the Database Schema
+
+model Settings {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model Voice {
+  id          String   @id @default(uuid())
+  voiceId     String   @unique
+  name        String
+  language    String
+  provider    String   // 'elevenlabs', 'azure', 'google', etc.
+  previewUrl  String?
+  labels      String?    // tags, characteristics
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String    @id @default(uuid())
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  videos      Video[]
+}
+
+model Video {
+  id          String     @id @default(uuid())
+  projectId   String
+  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name        String
+  url         String
+  size        String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  subtitles   Subtitle[]
+}
+
+model Subtitle {
+  id           String   @id @default(uuid())
+  videoId      String
+  video        Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  start        String
+  end          String
+  startSeconds Float
+  endSeconds   Float
+  khmerText    String
+  voiceProfile String
+  voiceLabel   String
+  gender       String
+  colorTag     String
+  speed        Float
+  audioStatus  String
+  audioUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

@@ -1,0 +1,65 @@
+{
+  "name": "@dubber/backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "electron.js",
+  "scripts": {
+    "dev": "tsx watch --ignore data src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "electron:start": "node build-app.js && electron .",
+    "electron:build": "node build-app.js && electron-builder",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "build": {
+    "appId": "com.dubberpro.app",
+    "productName": "DAI Dubber PRO",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron.js",
+      "frontend-dist/**/*",
+      "data/**/*",
+      "prisma/**/*",
+      "node_modules/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/@prisma/client/**/*",
+      "node_modules/.prisma/client/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "ffmpeg-static": "^5.3.0",
+    "helmet": "^7.1.0",
+    "multer": "^1.4.5-lts.1",
+    "phantomjs-prebuilt": "^2.1.16",
+    "ws": "^8.22.0",
+    "zod": "^3.23.8",
+    "@prisma/client": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^20.16.5",
+    "@types/supertest": "^6.0.2",
+    "@types/ws": "^8.18.2",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1",
+    "prisma": "^5.0.0"
+  }
+}
